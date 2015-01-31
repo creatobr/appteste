@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/html"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Login para sua conta</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link href="http://d2styy3cl55ra7.cloudfront.net/themes/h2/css/cache/minify.css?v=0.1" rel="stylesheet" type="text/css"/>
+    <link href="http://d2styy3cl55ra7.cloudfront.net/themes/h2/css/pages/login.css?v=0.1" rel="stylesheet" type="text/css"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300&subset=latin,cyrillic-ext,vietnamese,cyrillic' rel='stylesheet' type='text/css'>
+        <!-- END GLOBAL MANDATORY STYLES -->
+    <link rel="shortcut icon" href="http://d2styy3cl55ra7.cloudfront.net/themes/h2/favicon.ico?v=0.1" />
+
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-1.10.1.min.js?v=0.1" type="text/javascript"></script>
+
+    </head>
+<body class="login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a class="brand" href="http://hostinger.com.br">
+            <img src="http://hostinger.s3.amazonaws.com/r/1238bb7c196b067741224bc0a441acb7/f949990c073acdc929342d88090ba299.png" alt="" />
+        </a>
+    </div>
+    <!-- END LOGO -->
+
+        <!-- BEGIN LOGIN -->
+<div class="content">
+    <!-- BEGIN LOGIN FORM -->
+    <form method="POST"
+          class="form-vertical login-form preloader-submit"
+          action="/auth/">
+
+        <h3 class="form-title">Por favor entre</h3>
+                <ul class="social-icons invert" style="margin-top:-15px; margin-bottom:-5px;">
+            <li><a href="https://www.facebook.com/dialog/oauth/?client_id=740015746038020&redirect_uri=http%3A%2F%2Fcpanel.hostinger.com.br%2Fpublic%2Foauth%2Fprovider%2Ffacebook%2Ftype%2Fregister&scope=email" class="facebook social_login"></a></li>            <li><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=55107310171-19pdofak51t76le7o37t71j8ohu0sq5o.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fcpanel.hostinger.com.br%2Fpublic%2Foauth%2Fprovider%2Fgoogle%2Ftype%2Fregister&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=54cd29aad6e4c" class="googleplus social_login"></a></li>                                            </ul>
+        <div class="create-account"></div>
+        
+        
+        <div class="note note-error hide">
+            <button class="close" data-dismiss="alert"></button>
+            <span>Digite o email ou senha.</span>
+        </div>
+        <div class="control-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-user"></i>
+                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="Email" name="email" value="creatobr@gmail.com" required="required"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label visible-ie8 visible-ie9">Senha</label>
+            <div class="controls">
+                <div class="input-icon left">
+                    <i class="icon-lock"></i>
+                    <input class="m-wrap placeholder-no-fix" type="password" placeholder="Senha" name="password" value="" required="required"/>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="login_secret" value="">
+        <input type="hidden" name="r" value="/profile">
+                <div class="form-actions" style="padding-bottom:0px;">
+            <img src="/themes/h2/img/ajax-loading.gif" style="width:0; height:0;" />
+            <label class="checkbox">
+                <input type="checkbox" name="remember" value="1"/> Lembrar            </label>
+            <button type="submit" class="btn purple pull-right"><i class="preloader" style="display: none"></i>
+                Login <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+        <div class="forget-password">
+            <h4>Esqueceu sua senha?</h4>
+            <p>
+                <a href="/auth/remind" id="forget-password">Clique aqui</a> para resetar sua senha.            </p>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+</div>
+
+<script type="text/javascript">
+
+    $(function() {
+        var socialBlock = $('.social_login').closest('ul');
+        $('<div></div>').addClass("form-overlay").css("display", "none").appendTo(".login-form");
+        $('<div class="form-disabled-loader" style="display: none">' +
+            '<div class="account-lock-loader"></div>' +
+            '</div>').appendTo(socialBlock);
+
+        $('.social_login').click(function(e){
+            if ($(".login-form")[0]){
+                var position = $('.login-form').position();
+                var left = position.left;
+                var top = position.top;
+                var width = $('.login-form').outerWidth();
+                var height = $('.login-form').outerHeight();
+
+                $('.form-disabled-loader canvas').css({
+                    "cursor": "progress !important"
+                });
+                $('.form-overlay').css({
+                    "position": "absolute",
+                    "left": left-10 + "px",
+                    "top": top + "px",
+                    "background-color": "rgb(255,255,255)",
+                    "width": width+20+"px",
+                    "height": height + "px",
+                    "opacity": ".8",
+                    "z-index": "10",
+                    "cursor": "progress",
+                    "background-image": "url(/themes/h2/img/ajax-loading.gif)",
+                    "background-position": "50% 50%",
+                    "background-repeat": "no-repeat"
+                }).show();
+            }
+        });
+    });
+function echeck(str) {
+        var err = "Por favor insira um endereço de email válido";
+		var at="@"
+		var dot="."
+		var lat=str.indexOf(at)
+		var lstr=str.length
+		var ldot=str.indexOf(dot)
+		if (str.indexOf(at)==-1){
+		   alert(err)
+		   return false
+		}
+
+		if (str.indexOf(at)==-1 || str.indexOf(at)==0 || str.indexOf(at)==lstr){
+		   alert(err)
+		   return false
+		}
+
+		if (str.indexOf(dot)==-1 || str.indexOf(dot)==0 || str.indexOf(dot)==lstr){
+		    alert(err)
+		    return false
+		}
+
+		 if (str.indexOf(at,(lat+1))!=-1){
+		    alert(err)
+		    return false
+		 }
+
+		 if (str.substring(lat-1,lat)==dot || str.substring(lat+1,lat+2)==dot){
+		    alert(err)
+		    return false
+		 }
+
+		 if (str.indexOf(dot,(lat+2))==-1){
+		    alert(err)
+		    return false
+		 }
+
+		 if (str.indexOf(" ")!=-1){
+		    alert(err)
+		    return false
+		 }
+
+ 		 return true
+	}
+
+function ValidateForm(){
+	var emailID=document.login_form.email
+	var ps=document.login_form.password
+
+	if ((emailID.value==null)||(emailID.value=="")){
+		alert("Por favor insira o endereço de email");
+		emailID.focus();
+		return false
+	}
+	if (echeck(emailID.value)==false){
+		emailID.focus();
+		return false
+	}
+	if (ps.value==''){
+		ps.focus();
+        alert("Por favor insira a senha");
+		return false
+	}
+    return true
+ }
+</script>
+
+
+<style>
+.preloader {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    margin-bottom: -3px;
+}
+</style>
+<script type="text/javascript">
+
+    $.prototype.lockButton = function(text){
+        var e = $(this.get(0));
+        if (e.attr('disabled')){
+            return false;
+        }
+        if (text && e.val()) {
+            e.attr('data-text', e.val());
+            e.attr('value', ' ' + text + ' ');
+        } else if (text) {
+            var oTxt = (e.contents()[0].nodeType == 3) ? e.contents()[0] : e.contents()[1];
+            if (e.contents()[0].nodeType == 1) {
+                e.attr('data-icon', e.contents()[0].className);
+                e.contents()[0].className = 'preloader';
+            }
+            if (oTxt){
+                e.attr('data-text', oTxt.nodeValue);
+                oTxt.nodeValue = ' ' +text + ' ';
+            }
+        }
+        e.attr('disabled', 'disabled');
+        if (!e.find('i.preloader')[0]) {
+            e.prepend('<i class="preloader" style="display: none;"></i>');
+        }
+        e.find('i.preloader').show();
+
+    };
+
+    $.prototype.unlockButton = function(){
+        var e = $(this.get(0));
+        if (e.attr('data-text') && e.val()) {
+            e.attr('value', e.attr('data-text'));
+            e.attr('data-text', null);
+        } else if (e.attr('data-text')) {
+            var oTxt = (e.contents()[0].nodeType == 3) ? e.contents()[0] : e.contents()[1];
+            if (e.contents()[0].nodeType == 1 && e.attr('data-icon')) {
+                e.contents()[0].className = e.attr('data-icon');
+                e.removeAttr('data-icon');
+            }
+            oTxt.nodeValue = e.attr('data-text');
+            e.attr('data-text', null);
+        }
+        e.removeAttr('disabled');
+        e.find('.preloader').hide();
+
+    };
+
+    $('form.preloader-submit').submit(function(){
+        $(this).submitButtonLock();
+        return true;
+    });
+    
+    $('button.preloader-submit, input.preloader-submit').click(function(e){
+        $(this).submitButtonLock();
+        return false;
+    });
+    
+    $.prototype.submitButtonLock = function(text, form){
+        var e = $(this.get(0));
+        if (this.get(0) instanceof HTMLFormElement) {
+            form = this.get(0);
+            e = e.find('[type=submit]');
+        }
+        if (e.attr('disabled')) {
+            return;
+        }
+        if (text == null) {
+            text = "Executando";
+        }
+        e.lockButton(text);
+        if (typeof form == 'string') {
+            location.href = form;
+            return;
+        }
+        if (form == null) {
+            form = e.closest('form')[0];
+            if (!form) {
+                form = $('#'+e.attr('form'))[0];
+            }
+        }
+        if (form instanceof HTMLFormElement) {
+            HTMLFormElement.prototype.submit.call(form);
+        } else {
+        }
+    };
+    
+var preloader = {
+    cSpeed: 5,
+    cWidth: 14,
+    cHeight: 14,
+    cTotalFrames:75,
+    cFrameWidth: 14,
+    cImageSrc: 'http://d2styy3cl55ra7.cloudfront.net/themes/h2/img/sprites.png?v=0.1',
+
+    cImageTimeout: false,
+    cIndex: 0,
+    cXpos: 0,
+    cPreloaderTimeout: false,
+    SECONDS_BETWEEN_FRAMES: 0,
+
+    startAnimation: function (){
+
+        $('.preloader').css('background-image', 'url('+ preloader.cImageSrc +')');
+
+        var FPS = Math.round(100/preloader.cSpeed);
+        preloader.SECONDS_BETWEEN_FRAMES = 1 / FPS;
+
+        preloader.cPreloaderTimeout=setTimeout('preloader.continueAnimation()', preloader.SECONDS_BETWEEN_FRAMES/1000);
+
+    },
+
+    continueAnimation: function (){
+
+        preloader.cXpos += preloader.cFrameWidth;
+        preloader.cIndex += 1;
+
+        if (preloader.cIndex >= preloader.cTotalFrames) {
+            preloader.cXpos =0;
+            preloader.cIndex=0;
+        }
+
+        if($('.preloader').is(':visible')) {
+            var css = {};
+            var bg = $('.preloader').css('background-image');
+            if (bg.indexOf('url') == -1) {
+                css['background-image'] = 'url('+ preloader.cImageSrc +')';
+            }
+            css['background-position'] = (-preloader.cXpos) + 'px 0';
+            $('.preloader').css(css);
+        }
+
+        preloader.cPreloaderTimeout=setTimeout('preloader.continueAnimation()', preloader.SECONDS_BETWEEN_FRAMES*1000);
+    },
+
+    stopAnimation: function (){
+        clearTimeout(preloader.cPreloaderTimeout);
+        preloader.cPreloaderTimeout=false;
+    },
+
+    imageLoader: function (s, fun)
+    {
+        clearTimeout(preloader.cImageTimeout);
+        preloader.cImageTimeout=0;
+        var genImage = new Image();
+        genImage.onload=function (){preloader.cImageTimeout=setTimeout(fun, 0)};
+        genImage.src=s;
+    },
+
+    init: function(){
+        new preloader.imageLoader(preloader.cImageSrc, 'preloader.startAnimation()');
+    }
+}
+    preloader.init();
+</script>
+    <div class="copyright">
+            </div>
+    <!-- END COPYRIGHT -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-migrate-1.2.1.min.js?v=0.1" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/bootstrap/js/bootstrap.min.js?v=0.1" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/excanvas.min.js?v=0.1"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/respond.min.js?v=0.1"></script>
+    <![endif]-->
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-slimscroll/jquery.slimscroll.min.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery.blockui.min.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery.cookie.min.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/uniform/jquery.uniform.min.js?v=0.1" type="text/javascript" ></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/backstretch/jquery.backstretch.min.js?v=0.1" type="text/javascript"></script>
+
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-validation/dist/jquery.validate.min.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/plugins/jquery-validation/dist/additional-methods.min.js?v=0.1" type="text/javascript"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/scripts/app.js?v=0.1" type="text/javascript"></script>
+    <script src="http://d2styy3cl55ra7.cloudfront.net/themes/h2/scripts/login.js?v=0.1" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            Login.init();
+            $('.login').attr('style', '');
+
+                            $.backstretch([
+                    "http://d2styy3cl55ra7.cloudfront.net/themes/h2/img/bg/6.jpg?v=0.1",
+                    "http://d2styy3cl55ra7.cloudfront.net/themes/h2/img/bg/7.jpg?v=0.1",
+                    "http://d2styy3cl55ra7.cloudfront.net/themes/h2/img/bg/8.jpg?v=0.1"
+                ], {
+                    fade: 1000,
+                    duration: 8000
+                });
+            
+        });
+    </script>
+
+
+    <!-- END JAVASCRIPTS -->
+    </body>
+</html>
